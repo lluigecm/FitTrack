@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router, RouterOutlet, RouterLink, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,18 @@ import { RouterOutlet, RouterLink } from '@angular/router';
 })
 
 export class App {
-  protected readonly title = signal('fittrack');
+  isLoggedIn = false;
+
+  constructor(private router: Router) {
+    this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe((e: NavigationEnd) => {
+        this.isLoggedIn = e.url !== '/login';
+      });
+  }
+
+  logout() {
+    this.isLoggedIn = false;
+    this.router.navigate(['/login']);
+  }
 }
