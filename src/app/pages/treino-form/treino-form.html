@@ -1,20 +1,24 @@
 <div class="container">
   <h2>Novo Treino</h2>
   <form>
-    <input type="text" placeholder="Nome do treino (ex: Treino A)" required />
-    <input type="date" required/>
+    <input type="text" placeholder="Nome do treino (ex: Treino A)" />
+    <input type="date" />
 
     <h3>Exercícios</h3>
-    <select>
-      <option>Supino</option>
-      <option>Agachamento</option>
-      <option>Rosca direta</option>
-    </select>
-    <input type="number" placeholder="Séries" required />
-    <input type="number" placeholder="Repetições" required />
-    <input type="number" placeholder="Carga (kg)"/>
+    <div class="exercicio-fields">
+      <select>
+        <option>Supino</option>
+        <option>Agachamento</option>
+        <option>Rosca direta</option>
+      </select>
+      <input type="number" placeholder="Séries" />
+      <input type="number" placeholder="Reps" />
+      <input type="number" placeholder="Kg" />
+    </div>
 
-    <button type="submit">Salvar Treino</button>
-    <a routerLink="/treinos">Cancelar</a>
+    <div class="actions">
+      <button type="submit">Salvar Treino</button>
+      <a routerLink="/treinos">Cancelar</a>
+    </div>
   </form>
 </div>

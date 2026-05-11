@@ -1,0 +1,84 @@
+.container {
+  padding: 2rem;
+  max-width: 600px;
+
+  h2 {
+    font-size: 1.8rem;
+    color: #cdd6f4;
+    margin-bottom: 2rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    input, select {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #313244;
+      background-color: #313244;
+      color: #cdd6f4;
+      font-size: 1rem;
+
+      &:focus {
+        outline: none;
+        border-color: #89b4fa;
+      }
+    }
+
+    select option {
+      background-color: #1e1e2e;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      color: #a6adc8;
+      margin-top: 0.5rem;
+    }
+
+    .exercicio-fields {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+
+      button {
+        flex: 1;
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: none;
+        background-color: #89b4fa;
+        color: #1e1e2e;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #74c7ec;
+        }
+      }
+
+      a {
+        flex: 1;
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: 1px solid #6c7086;
+        color: #a6adc8;
+        font-size: 1rem;
+        text-align: center;
+        text-decoration: none;
+
+        &:hover {
+          border-color: #cdd6f4;
+          color: #cdd6f4;
+        }
+      }
+    }
+  }
+}
