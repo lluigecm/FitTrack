@@ -1,28 +1,14 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet, RouterLink, NavigationEnd } from '@angular/router';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { Navbar } from './shared/navbar/navbar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet, Navbar],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 
-export class App {
-  isLoggedIn = false;
-
-  constructor(private router: Router) {
-    this.router.events
-      .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe((e: NavigationEnd) => {
-        this.isLoggedIn = e.url !== '/login';
-      });
-  }
-
-  logout() {
-    this.isLoggedIn = false;
-    this.router.navigate(['/login']);
-  }
-}
+export class App {}

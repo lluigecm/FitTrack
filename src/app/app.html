@@ -1,10 +1,2 @@
-<nav>
-  @if (isLoggedIn) {
-    <a routerLink="/dashboard">Dashboard</a>
-    <a routerLink="/treinos">Treinos</a>
-    <a routerLink="/treinos/novo">Novo Treino</a>
-    <a routerLink="/exercicios">Exercícios</a>
-    <button (click)="logout()">Logout</button>
-  }
-</nav>
+<app-navbar />
 <router-outlet />

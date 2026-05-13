@@ -1,0 +1,18 @@
+.treino-item {
+  background-color: #313244;
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  strong {
+    font-size: 1rem;
+    color: #89b4fa;
+  }
+
+  span {
+    font-size: 0.9rem;
+    color: #a6adc8;
+  }
+}
