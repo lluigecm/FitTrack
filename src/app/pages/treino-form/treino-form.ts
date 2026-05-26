@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -14,13 +14,31 @@ export class TreinoForm {
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      nome: [ null, [Validators.required, Validators.minLength(3)]],
-      data: [ null, Validators.required],
-      exercicio: [ null, Validators.required],
-      series: [ null, [Validators.required, Validators.min(1)]],
-      repeticoes: [ null, [Validators.required, Validators.min(1)]],
-      carga: [ null, [Validators.required, Validators.min(0)]],
+      nome: ['', [Validators.required, Validators.minLength(3)]],
+      data: ['', Validators.required],
+      exercicios: this.fb.array([this.novoExercicio()])
     });
+  }
+
+  get exercicios(): FormArray {
+    return this.form.get('exercicios') as FormArray;
+  }
+
+  novoExercicio(): FormGroup {
+    return this.fb.group({
+      exercicio: ['', Validators.required],
+      series: [null, [Validators.required, Validators.min(1)]],
+      repeticoes: [null, [Validators.required, Validators.min(1)]],
+      carga: [null, [Validators.required, Validators.min(0)]],
+    });
+  }
+
+  adicionarExercicio() {
+    this.exercicios.push(this.novoExercicio());
+  }
+
+  removerExercicio(index: number) {
+    this.exercicios.removeAt(index);
   }
 
   salvar() {

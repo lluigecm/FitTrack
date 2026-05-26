@@ -12,23 +12,28 @@
       <span class="erro">Data obrigatória</span>
     }
 
-    <h3>Exercício</h3>
-    <div class="exercicio-fields">
-      <select formControlName="exercicio">
-        <option value="" disabled>Selecione</option>
-        <option>Supino</option>
-        <option>Agachamento</option>
-        <option>Rosca direta</option>
-      </select>
+    <h3>Exercícios</h3>
 
-      <input formControlName="series" type="number" placeholder="Séries" />
-      <input formControlName="repeticoes" type="number" placeholder="Reps" />
-      <input formControlName="carga" type="number" placeholder="Kg" />
+    <div formArrayName="exercicios">
+      @for (ex of exercicios.controls; track $index) {
+        <div class="exercicio-row" [formGroupName]="$index">
+          <select formControlName="exercicio">
+            <option value="" disabled>Selecione</option>
+            <option>Supino</option>
+            <option>Agachamento</option>
+            <option>Rosca direta</option>
+          </select>
+          <input formControlName="series" type="number" placeholder="Séries" />
+          <input formControlName="repeticoes" type="number" placeholder="Reps" />
+          <input formControlName="carga" type="number" placeholder="Kg" />
+          @if (exercicios.length > 1) {
+            <button type="button" class="remover" (click)="removerExercicio($index)">❌</button>
+          }
+        </div>
+      }
     </div>
 
-    @if (form.get('exercicio')?.invalid && form.get('exercicio')?.touched) {
-      <span class="erro">Selecione um exercício</span>
-    }
+    <button type="button" class="adicionar" (click)="adicionarExercicio()">+ Adicionar exercício</button>
 
     <div class="actions">
       <button type="submit" [disabled]="form.invalid">Salvar Treino</button>

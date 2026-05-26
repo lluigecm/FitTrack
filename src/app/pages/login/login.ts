@@ -19,6 +19,7 @@ export class Login {
 
   login() {
     if (this.email === 'admin' && this.senha === 'admin') {
+      sessionStorage.setItem('loggedIn', 'true');
       this.router.navigate(['/dashboard']);
     } else {
       this.erro = 'E-mail ou senha inválidos.';

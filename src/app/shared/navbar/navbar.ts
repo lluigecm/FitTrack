@@ -16,11 +16,12 @@ export class Navbar {
     this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
       .subscribe((e: NavigationEnd) => {
-        this.isLoggedIn = e.url !== '/login';
+        this.isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
       });
   }
 
   logout() {
+    sessionStorage.removeItem('loggedIn');
     this.isLoggedIn = false;
     this.router.navigate(['/login']);
   }
