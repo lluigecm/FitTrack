@@ -1,24 +1,39 @@
 <div class="container">
   <h2>Novo Treino</h2>
-  <form>
-    <input type="text" placeholder="Nome do treino (ex: Treino A)" />
-    <input type="date" />
+  <form [formGroup]="form" (ngSubmit)="salvar()">
 
-    <h3>Exercícios</h3>
+    <input formControlName="nome" type="text" placeholder="Nome do treino (ex: Treino A)" />
+    @if (form.get('nome')?.invalid && form.get('nome')?.touched) {
+      <span class="erro">Nome obrigatório, mínimo 3 caracteres</span>
+    }
+
+    <input formControlName="data" type="date" />
+    @if (form.get('data')?.invalid && form.get('data')?.touched) {
+      <span class="erro">Data obrigatória</span>
+    }
+
+    <h3>Exercício</h3>
     <div class="exercicio-fields">
-      <select>
+      <select formControlName="exercicio">
+        <option value="" disabled>Selecione</option>
         <option>Supino</option>
         <option>Agachamento</option>
         <option>Rosca direta</option>
       </select>
-      <input type="number" placeholder="Séries" />
-      <input type="number" placeholder="Reps" />
-      <input type="number" placeholder="Kg" />
+
+      <input formControlName="series" type="number" placeholder="Séries" />
+      <input formControlName="repeticoes" type="number" placeholder="Reps" />
+      <input formControlName="carga" type="number" placeholder="Kg" />
     </div>
 
+    @if (form.get('exercicio')?.invalid && form.get('exercicio')?.touched) {
+      <span class="erro">Selecione um exercício</span>
+    }
+
     <div class="actions">
-      <button type="submit">Salvar Treino</button>
+      <button type="submit" [disabled]="form.invalid">Salvar Treino</button>
       <a routerLink="/treinos">Cancelar</a>
     </div>
+
   </form>
 </div>
