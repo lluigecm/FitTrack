@@ -29,6 +29,26 @@ Aplicação de acompanhamento de treinos de academia: cadastro de exercícios, r
 
 > Observação: o login é apenas uma camada de demonstração no frontend. Os dados de treinos/exercícios são compartilhados entre os usuários.
 
+## 🔒 TODO de Segurança
+
+**🔴 Crítico**
+- [ ] Implementar **auth real no backend** (JWT + `AuthGuard`) e `POST /api/auth/login` validando no banco
+- [ ] Remover **credenciais hardcoded** do frontend (`login.ts`) — validação vai pro backend
+- [ ] **Hashear senhas** no banco (`bcrypt`/`argon2`); nunca armazenar texto puro
+- [ ] **Ownership nas queries** — derivar `usuarioId` do token (não do body) e filtrar todos os `find`/`remove`
+
+**🟠 Alto / Médio**
+- [ ] Ativar **`ValidationPipe` + `class-validator`** nos DTOs (`whitelist`, `transform`) — fecha vários 500s
+- [ ] `onDelete: Cascade` (ou tratar FK → 409) ao apagar exercício em uso
+- [ ] Adicionar **`helmet`** e **`@nestjs/throttler`** (headers + rate limiting/brute force)
+- [ ] Docker: trocar `prisma db push` por **`prisma migrate deploy`** e rodar como `USER node`
+
+**🟡 Baixo / Limpeza**
+- [ ] Revisar `!origin` no CORS; padronizar config (`@nestjs/config` vs `dotenv`)
+- [ ] Corrigir campo "email" que compara com username; remover código morto da tabela `Usuario`
+- [ ] Adicionar **exception filter** global do Prisma (erros não vazam como 500 genérico)
+
+
 ## Rodando localmente
 
 Pré-requisitos: Node.js, npm e uma instância PostgreSQL local.
