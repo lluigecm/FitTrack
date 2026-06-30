@@ -14,5 +14,14 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 
   async onModuleInit() {
     await this.$connect();
+    await this.seedUsuarioPadrao();
+  }
+
+  private async seedUsuarioPadrao() {
+    await this.usuario.upsert({
+      where: { id: 1 },
+      update: {},
+      create: { id: 1, email: 'admin@fittrack.com', senha: 'admin' },
+    });
   }
 }
