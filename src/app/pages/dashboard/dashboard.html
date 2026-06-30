@@ -7,47 +7,28 @@
   </div>
 
   <div class="stats-grid">
-    <app-card titulo="Treinos este mês" valor="12" icon="🏋️" accent="blue" />
-    <app-card titulo="Último treino" valor="08/05" icon="📅" accent="green" />
-    <app-card titulo="Exercícios cadastrados" valor="8" icon="📋" accent="mauve" />
+    <app-card titulo="Treinos este mês" [valor]="treinosEsteMes.toString()" icon="🏋️" accent="blue" />
+    <app-card titulo="Último treino" [valor]="ultimoTreino" icon="📅" accent="green" />
+    <app-card titulo="Exercícios cadastrados" [valor]="exerciciosCadastrados.toString()" icon="📋" accent="mauve" />
   </div>
 
   <div class="section">
-    <h3 class="section-title">Progresso por exercício</h3>
+    <h3 class="section-title">Treinos por mês</h3>
     <div class="chart-area">
-      <div class="chart-grid">
-        <span class="grid-line">12</span>
-        <span class="grid-line">8</span>
-        <span class="grid-line">4</span>
-        <span class="grid-line">0</span>
-      </div>
       <div class="chart-bars">
-        <div class="bar-group">
-          <div class="bar" style="height: 50%"></div>
-          <span>Jan</span>
-        </div>
-        <div class="bar-group">
-          <div class="bar" style="height: 75%"></div>
-          <span>Fev</span>
-        </div>
-        <div class="bar-group">
-          <div class="bar" style="height: 42%"></div>
-          <span>Mar</span>
-        </div>
-        <div class="bar-group">
-          <div class="bar" style="height: 88%"></div>
-          <span>Abr</span>
-        </div>
-        <div class="bar-group">
-          <div class="bar" style="height: 65%"></div>
-          <span>Mai</span>
-        </div>
-        <div class="bar-group">
-          <div class="bar active" style="height: 80%"></div>
-          <span class="active-label">Jun</span>
-        </div>
+        @for (barra of barras; track barra.label) {
+          <div class="bar-group">
+            <span class="bar-count">{{ barra.count }}</span>
+            <div
+              class="bar"
+              [class.active]="barra.ativo"
+              [style.height.%]="barra.altura"
+            ></div>
+            <span [class.active-label]="barra.ativo">{{ barra.label }}</span>
+          </div>
+        }
       </div>
     </div>
-    <p class="chart-note">Em breve: dados reais integrados à API</p>
+    <p class="chart-note">Últimos 6 meses · dados reais da sua conta</p>
   </div>
 </div>

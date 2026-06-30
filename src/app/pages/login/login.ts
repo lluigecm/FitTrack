@@ -17,8 +17,16 @@ export class Login {
 
   constructor(private router: Router) {}
 
+  private usuarios = [
+    { usuario: 'admin', senha: 'admin' },
+    { usuario: 'teste', senha: '0000' },
+  ];
+
   login() {
-    if (this.email === 'admin' && this.senha === 'admin') {
+    const valido = this.usuarios.some(
+      (u) => u.usuario === this.email && u.senha === this.senha,
+    );
+    if (valido) {
       sessionStorage.setItem('loggedIn', 'true');
       this.router.navigate(['/dashboard']);
     } else {

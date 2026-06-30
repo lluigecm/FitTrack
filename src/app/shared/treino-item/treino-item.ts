@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './treino-item.scss'
 })
 export class TreinoItem {
+  @Input() id!: number;
   @Input() nome = '';
   @Input() data = '';
   @Output() remover = new EventEmitter<void>();

@@ -28,6 +28,7 @@
     <div class="lista">
       @for (treino of treinos; track treino.id) {
         <app-treino-item
+          [id]="treino.id"
           [nome]="treino.nome"
           [data]="formatarData(treino.data)"
           (remover)="remover(treino.id)"

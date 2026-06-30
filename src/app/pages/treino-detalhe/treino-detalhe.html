@@ -1,0 +1,56 @@
+<div class="treino-detalhe">
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">{{ treino?.nome || 'Treino' }}</h2>
+      @if (treino) {
+        <p class="page-subtitle">{{ formatarData(treino.data) }}</p>
+      }
+    </div>
+    <a routerLink="/treinos" class="btn-back">← Voltar</a>
+  </div>
+
+  @if (carregando) {
+    <div class="carregando">Carregando treino...</div>
+  } @else if (erro) {
+    <div class="api-erro">⚠️ {{ erro }}</div>
+  } @else if (treino) {
+    <div class="resumo">
+      <div class="resumo-item">
+        <span class="resumo-valor">{{ treino.exercicios.length }}</span>
+        <span class="resumo-label">Exercícios</span>
+      </div>
+      <div class="resumo-item">
+        <span class="resumo-valor">{{ totalSeries }}</span>
+        <span class="resumo-label">Séries totais</span>
+      </div>
+    </div>
+
+    <div class="exercicios-lista">
+      @for (ex of treino.exercicios; track ex.id) {
+        <div class="exercicio-card">
+          <div class="ex-header">
+            <span class="ex-icon">💪</span>
+            <div>
+              <strong class="ex-nome">{{ ex.exercicio.nome }}</strong>
+              <span class="ex-categoria">{{ ex.exercicio.categoria }}</span>
+            </div>
+          </div>
+          <div class="ex-metrics">
+            <div class="metric">
+              <span class="metric-valor">{{ ex.series }}</span>
+              <span class="metric-label">Séries</span>
+            </div>
+            <div class="metric">
+              <span class="metric-valor">{{ ex.repeticoes }}</span>
+              <span class="metric-label">Reps</span>
+            </div>
+            <div class="metric">
+              <span class="metric-valor">{{ ex.carga }}kg</span>
+              <span class="metric-label">Carga</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

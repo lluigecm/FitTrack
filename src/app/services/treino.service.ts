@@ -39,6 +39,10 @@ export class TreinoService {
     return this.http.get<Treino[]>(this.url);
   }
 
+  buscar(id: number) {
+    return this.http.get<Treino>(`${this.url}/${id}`);
+  }
+
   criar(payload: CreateTreinoPayload) {
     return this.http.post<Treino>(this.url, payload);
   }

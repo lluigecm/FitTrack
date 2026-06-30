@@ -35,6 +35,17 @@
     transition: opacity 0.15s;
   }
 
+  .treino-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    min-width: 0;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
   .treino-icon {
     font-size: 1.35rem;
     flex-shrink: 0;

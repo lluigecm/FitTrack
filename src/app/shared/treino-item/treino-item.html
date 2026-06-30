@@ -1,10 +1,12 @@
 <div class="treino-item">
   <div class="treino-accent"></div>
-  <div class="treino-icon">🏋️</div>
-  <div class="treino-info">
-    <strong class="treino-nome">{{ nome }}</strong>
-    <span class="treino-data">{{ data }}</span>
-  </div>
+  <a class="treino-link" [routerLink]="['/treinos', id]">
+    <div class="treino-icon">🏋️</div>
+    <div class="treino-info">
+      <strong class="treino-nome">{{ nome }}</strong>
+      <span class="treino-data">{{ data }}</span>
+    </div>
+  </a>
   <div class="treino-actions">
     <button class="btn-action btn-delete" (click)="remover.emit()" title="Remover treino">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
