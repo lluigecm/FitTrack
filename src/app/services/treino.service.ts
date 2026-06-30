@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 export interface TreinoExercicioPayload {
   exercicioId: number;
@@ -30,7 +31,7 @@ export interface Treino {
 
 @Injectable({ providedIn: 'root' })
 export class TreinoService {
-  private url = 'http://localhost:3000/api/treinos';
+  private url = `${environment.apiUrl}/treinos`;
 
   constructor(private http: HttpClient) {}
 
