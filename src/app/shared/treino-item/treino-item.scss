@@ -1,18 +1,87 @@
 .treino-item {
-  background-color: #313244;
+  background-color: var(--base);
+  border: 1px solid var(--surface0);
   border-radius: 12px;
-  padding: 1.2rem 1.5rem;
+  padding: 1rem 1.25rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.15s, background 0.15s;
 
-  strong {
-    font-size: 1rem;
-    color: #89b4fa;
+  &:hover {
+    border-color: var(--surface1);
+    background-color: rgba(49, 50, 68, 0.4);
+
+    .treino-accent {
+      opacity: 1;
+    }
+
+    .btn-action {
+      opacity: 1;
+    }
   }
 
-  span {
-    font-size: 0.9rem;
-    color: #a6adc8;
+  .treino-accent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--blue), var(--mauve));
+    border-radius: 0 2px 2px 0;
+    opacity: 0.5;
+    transition: opacity 0.15s;
+  }
+
+  .treino-icon {
+    font-size: 1.35rem;
+    flex-shrink: 0;
+    padding-left: 0.25rem;
+  }
+
+  .treino-info {
+    flex: 1;
+    min-width: 0;
+
+    .treino-nome {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .treino-data {
+      font-size: 0.8rem;
+      color: var(--subtext0);
+    }
+  }
+
+  .btn-action {
+    background: transparent;
+    border: 1px solid var(--surface1);
+    color: var(--overlay0);
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    flex-shrink: 0;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.15s;
+
+    &:hover {
+      border-color: var(--red);
+      color: var(--red);
+      background-color: rgba(243, 139, 168, 0.08);
+    }
   }
 }

@@ -1,10 +1,28 @@
-<nav>
+<nav class="navbar">
+  <a class="brand" routerLink="/dashboard">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="10" width="3" height="4" rx="1" fill="currentColor"/>
+      <rect x="18" y="10" width="3" height="4" rx="1" fill="currentColor"/>
+      <rect x="6" y="6" width="3" height="12" rx="1" fill="currentColor"/>
+      <rect x="15" y="6" width="3" height="12" rx="1" fill="currentColor"/>
+      <rect x="9" y="8" width="6" height="8" rx="1" fill="currentColor"/>
+    </svg>
+    <span>FitTrack</span>
+  </a>
+
   @if (isLoggedIn) {
-    <a routerLink="/dashboard">Dashboard</a>
-    <a routerLink="/treinos">Treinos</a>
-    <a routerLink="/treinos/novo">Novo Treino</a>
-    <a routerLink="/exercicios">Exercícios</a>
-    <button (click)="logout()">Logout</button>
+    <div class="nav-links">
+      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+      <a routerLink="/treinos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Treinos</a>
+      <a routerLink="/exercicios" routerLinkActive="active">Exercícios</a>
+    </div>
+
+    <div class="nav-actions">
+      <a routerLink="/treinos/novo" class="btn-new">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Novo Treino
+      </a>
+      <button class="btn-logout" (click)="logout()">Sair</button>
+    </div>
   }
 </nav>
-<router-outlet />

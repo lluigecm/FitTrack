@@ -1,34 +1,97 @@
-nav {
+.navbar {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem 2rem;
-  background-color: #1e1e2e;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  gap: 0.5rem;
+  padding: 0 2rem;
+  height: 60px;
+  background-color: var(--base);
+  border-bottom: 1px solid var(--surface0);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
-  a {
-    color: #cdd6f4;
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 1.1rem;
     text-decoration: none;
-    font-size: 0.95rem;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
 
-    &:hover {
-      color: #89b4fa;
+    svg {
+      flex-shrink: 0;
     }
   }
 
-  button {
-    margin-left: auto;
-    background-color: transparent;
-    border: 1px solid #f38ba8;
-    color: #f38ba8;
-    padding: 0.4rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1;
 
-    &:hover {
-      background-color: #f38ba8;
-      color: #1e1e2e;
+    a {
+      color: var(--subtext0);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      transition: color 0.15s, background 0.15s;
+
+      &:hover {
+        color: var(--text);
+        background-color: var(--surface0);
+      }
+
+      &.active {
+        color: var(--blue);
+        background-color: rgba(137, 180, 250, 0.1);
+      }
+    }
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-left: auto;
+
+    .btn-new {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background-color: var(--blue);
+      color: var(--base);
+      padding: 0.42rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.15s;
+
+      &:hover {
+        background-color: var(--sapphire);
+      }
+    }
+
+    .btn-logout {
+      background-color: transparent;
+      border: 1px solid var(--surface1);
+      color: var(--subtext0);
+      padding: 0.42rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+
+      &:hover {
+        border-color: var(--red);
+        color: var(--red);
+      }
     }
   }
 }

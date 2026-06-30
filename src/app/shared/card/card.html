@@ -1,4 +1,7 @@
-<div class="card">
-  <h3>{{ titulo }}</h3>
-  <p>{{ valor }}</p>
+<div class="card" [attr.data-accent]="accent">
+  <div class="card-icon">{{ icon }}</div>
+  <div class="card-body">
+    <p class="card-label">{{ titulo }}</p>
+    <p class="card-value">{{ valor }}</p>
+  </div>
 </div>

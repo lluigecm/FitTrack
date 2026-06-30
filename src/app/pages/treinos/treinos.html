@@ -1,11 +1,38 @@
-<div class="container">
-  <div class="header">
-    <h2>Meus Treinos</h2>
-    <a routerLink="/treinos/novo">+ Novo Treino</a>
+<div class="treinos">
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Meus Treinos</h2>
+      <p class="page-subtitle">Histórico e gestão de treinos</p>
+    </div>
+    <a routerLink="/treinos/novo" class="btn-primary">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Novo Treino
+    </a>
   </div>
 
-  <div class="lista">
-    <app-treino-item nome="Treino A" data="10/05/2026" />
-    <app-treino-item nome="Treino B" data="08/05/2026" />
-  </div>
+  @if (erro) {
+    <div class="api-erro">⚠️ {{ erro }}</div>
+  }
+
+  @if (carregando) {
+    <div class="carregando">Carregando treinos...</div>
+  } @else if (treinos.length === 0 && !erro) {
+    <div class="empty-state">
+      <span class="empty-icon">🏋️</span>
+      <p>Nenhum treino registrado ainda.</p>
+      <p class="empty-hint">Clique em "Novo Treino" para começar.</p>
+    </div>
+  } @else {
+    <div class="lista">
+      @for (treino of treinos; track treino.id) {
+        <app-treino-item
+          [nome]="treino.nome"
+          [data]="formatarData(treino.data)"
+          (remover)="remover(treino.id)"
+        />
+      }
+    </div>
+  }
 </div>

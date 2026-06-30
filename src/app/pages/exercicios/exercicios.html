@@ -1,22 +1,60 @@
-<div class="container">
-  <h2>Exercícios</h2>
+<div class="exercicios">
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Exercícios</h2>
+      <p class="page-subtitle">Gerencie sua biblioteca de exercícios</p>
+    </div>
+  </div>
 
-  <form>
-    <input type="text" placeholder="Nome do exercício" />
-    <select>
-      <option>Peito</option>
-      <option>Costas</option>
-      <option>Pernas</option>
-      <option>Ombro</option>
-      <option>Bíceps</option>
-      <option>Tríceps</option>
-    </select>
-    <button type="submit">Adicionar</button>
-  </form>
+  <div class="add-form">
+    <h3 class="form-title">Adicionar exercício</h3>
+    <form (ngSubmit)="adicionar()">
+      <div class="form-row">
+        <input
+          type="text"
+          placeholder="Nome do exercício"
+          [(ngModel)]="novoNome"
+          name="novoNome"
+          autocomplete="off"
+        />
+        <select [(ngModel)]="novaCategoria" name="novaCategoria">
+          @for (cat of categorias; track cat) {
+            <option [value]="cat">{{ cat }}</option>
+          }
+        </select>
+        <button type="submit" [disabled]="!novoNome.trim()">Adicionar</button>
+      </div>
+    </form>
+  </div>
 
-  <div class="lista">
-    <app-exercicio-item nome="Supino" categoria="Peito" />
-    <app-exercicio-item nome="Agachamento" categoria="Pernas" />
-    <app-exercicio-item nome="Rosca direta" categoria="Bíceps" />
+  <div class="lista-section">
+    <h3 class="lista-header">
+      Cadastrados
+      <span class="badge">{{ exercicios.length }}</span>
+    </h3>
+
+    @if (erro) {
+      <div class="api-erro">⚠️ {{ erro }}</div>
+    }
+
+    @if (carregando) {
+      <div class="carregando">Carregando...</div>
+    } @else if (exercicios.length === 0 && !erro) {
+      <div class="empty-state">
+        <span class="empty-icon">💪</span>
+        <p>Nenhum exercício cadastrado ainda.</p>
+        <p class="empty-hint">Use o formulário acima para adicionar.</p>
+      </div>
+    } @else if (!carregando) {
+      <div class="lista">
+        @for (ex of exercicios; track ex.id) {
+          <app-exercicio-item
+            [nome]="ex.nome"
+            [categoria]="ex.categoria"
+            (remover)="remover($index)"
+          />
+        }
+      </div>
+    }
   </div>
 </div>

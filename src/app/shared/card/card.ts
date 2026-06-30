@@ -6,8 +6,9 @@ import { Component, Input } from '@angular/core';
   templateUrl: './card.html',
   styleUrl: './card.scss'
 })
-
 export class Card {
   @Input() titulo = '';
   @Input() valor = '';
+  @Input() icon = '';
+  @Input() accent: 'blue' | 'green' | 'mauve' | 'peach' = 'blue';
 }

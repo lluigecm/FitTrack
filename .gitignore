@@ -5,11 +5,16 @@
 /tmp
 /out-tsc
 /bazel-out
+fittrack-api/dist
 
 # Node
-/node_modules
+**/node_modules
 npm-debug.log
 yarn-error.log
+
+# Environment / secrets
+.env
+**/.env
 
 # IDEs and editors
 .idea/

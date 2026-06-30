@@ -1,12 +1,53 @@
-<div class="container">
-  <h2>Dashboard</h2>
-
-  <div class="cards">
-    <app-card titulo="Treinos esse mês" valor="12" />
-    <app-card titulo="Último treino" valor="08/05/2026" />
-    <app-card titulo="Exercícios cadastrados" valor="8" />
+<div class="dashboard">
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Dashboard</h2>
+      <p class="page-subtitle">Visão geral dos seus treinos</p>
+    </div>
   </div>
 
-  <h3>Progresso por exercício</h3>
-  <div class="grafico-placeholder">Gráfico em breve</div>
+  <div class="stats-grid">
+    <app-card titulo="Treinos este mês" valor="12" icon="🏋️" accent="blue" />
+    <app-card titulo="Último treino" valor="08/05" icon="📅" accent="green" />
+    <app-card titulo="Exercícios cadastrados" valor="8" icon="📋" accent="mauve" />
+  </div>
+
+  <div class="section">
+    <h3 class="section-title">Progresso por exercício</h3>
+    <div class="chart-area">
+      <div class="chart-grid">
+        <span class="grid-line">12</span>
+        <span class="grid-line">8</span>
+        <span class="grid-line">4</span>
+        <span class="grid-line">0</span>
+      </div>
+      <div class="chart-bars">
+        <div class="bar-group">
+          <div class="bar" style="height: 50%"></div>
+          <span>Jan</span>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height: 75%"></div>
+          <span>Fev</span>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height: 42%"></div>
+          <span>Mar</span>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height: 88%"></div>
+          <span>Abr</span>
+        </div>
+        <div class="bar-group">
+          <div class="bar" style="height: 65%"></div>
+          <span>Mai</span>
+        </div>
+        <div class="bar-group">
+          <div class="bar active" style="height: 80%"></div>
+          <span class="active-label">Jun</span>
+        </div>
+      </div>
+    </div>
+    <p class="chart-note">Em breve: dados reais integrados à API</p>
+  </div>
 </div>

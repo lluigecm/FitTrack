@@ -1,43 +1,92 @@
-<div class="container">
-  <h2>Novo Treino</h2>
-  <form [formGroup]="form" (ngSubmit)="salvar()">
+<div class="treino-form">
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Novo Treino</h2>
+      <p class="page-subtitle">Registre sua sessão de treino</p>
+    </div>
+    <a routerLink="/treinos" class="btn-back">← Voltar</a>
+  </div>
 
-    <input formControlName="nome" type="text" placeholder="Nome do treino (ex: Treino A)" />
-    @if (form.get('nome')?.invalid && form.get('nome')?.touched) {
-      <span class="erro">Nome obrigatório, mínimo 3 caracteres</span>
-    }
+  <form [formGroup]="form" (ngSubmit)="salvar()" class="form-card">
 
-    <input formControlName="data" type="date" />
-    @if (form.get('data')?.invalid && form.get('data')?.touched) {
-      <span class="erro">Data obrigatória</span>
-    }
-
-    <h3>Exercícios</h3>
-
-    <div formArrayName="exercicios">
-      @for (ex of exercicios.controls; track $index) {
-        <div class="exercicio-row" [formGroupName]="$index">
-          <select formControlName="exercicio">
-            <option value="" disabled>Selecione</option>
-            <option>Supino</option>
-            <option>Agachamento</option>
-            <option>Rosca direta</option>
-          </select>
-          <input formControlName="series" type="number" placeholder="Séries" />
-          <input formControlName="repeticoes" type="number" placeholder="Reps" />
-          <input formControlName="carga" type="number" placeholder="Kg" />
-          @if (exercicios.length > 1) {
-            <button type="button" class="remover" (click)="removerExercicio($index)">❌</button>
+    <div class="form-section">
+      <h3 class="section-label">Informações</h3>
+      <div class="fields-row">
+        <div class="field field--grow">
+          <label>Nome do treino</label>
+          <input formControlName="nome" type="text" placeholder="Ex: Treino A — Peito e Tríceps" />
+          @if (form.get('nome')?.invalid && form.get('nome')?.touched) {
+            <span class="field-error">Mínimo 3 caracteres</span>
           }
         </div>
-      }
+        <div class="field field--date">
+          <label>Data</label>
+          <input formControlName="data" type="date" />
+          @if (form.get('data')?.invalid && form.get('data')?.touched) {
+            <span class="field-error">Obrigatório</span>
+          }
+        </div>
+      </div>
     </div>
 
-    <button type="button" class="adicionar" (click)="adicionarExercicio()">+ Adicionar exercício</button>
+    <div class="form-section">
+      <h3 class="section-label">Exercícios</h3>
 
-    <div class="actions">
-      <button type="submit" [disabled]="form.invalid">Salvar Treino</button>
-      <a routerLink="/treinos">Cancelar</a>
+      <div formArrayName="exercicios" class="exercicios-lista">
+        @for (ex of exercicios.controls; track $index) {
+          <div class="exercicio-row" [formGroupName]="$index">
+            <div class="ex-num">{{ $index + 1 }}</div>
+
+            <select formControlName="exercicioId" class="ex-select">
+              <option [value]="null" disabled>Selecione o exercício</option>
+              @for (ex of exerciciosCatalogo; track ex.id) {
+                <option [value]="ex.id">{{ ex.nome }}</option>
+              }
+            </select>
+
+            <div class="ex-nums">
+              <div class="ex-num-field">
+                <label>Séries</label>
+                <input formControlName="series" type="number" placeholder="—" min="1" />
+              </div>
+              <div class="ex-num-field">
+                <label>Reps</label>
+                <input formControlName="repeticoes" type="number" placeholder="—" min="1" />
+              </div>
+              <div class="ex-num-field">
+                <label>Carga (kg)</label>
+                <input formControlName="carga" type="number" placeholder="—" min="0" />
+              </div>
+            </div>
+
+            @if (exercicios.length > 1) {
+              <button type="button" class="btn-remover" (click)="removerExercicio($index)" title="Remover">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <button type="button" class="btn-add-ex" (click)="adicionarExercicio()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        Adicionar exercício
+      </button>
+    </div>
+
+    @if (erro) {
+      <div class="form-erro">⚠️ {{ erro }}</div>
+    }
+
+    <div class="form-actions">
+      <button type="submit" class="btn-salvar" [disabled]="form.invalid || salvando">
+        {{ salvando ? 'Salvando...' : 'Salvar Treino' }}
+      </button>
+      <a routerLink="/treinos" class="btn-cancelar">Cancelar</a>
     </div>
 
   </form>

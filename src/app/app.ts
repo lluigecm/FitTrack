@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { RouterOutlet } from '@angular/router';
 import { Navbar } from './shared/navbar/navbar';
 
 @Component({
