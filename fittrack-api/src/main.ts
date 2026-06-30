@@ -4,13 +4,22 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const stripSlash = (url: string) => url.replace(/\/+$/, '');
   const allowedOrigins = [
     'http://localhost:4200',
     process.env.FRONTEND_URL,
-  ].filter(Boolean);
+  ]
+    .filter((u): u is string => Boolean(u))
+    .map(stripSlash);
 
   app.enableCors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(stripSlash(origin))) {
+        callback(null, true);
+      } else {
+        callback(null, false);
+      }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
   });
 
