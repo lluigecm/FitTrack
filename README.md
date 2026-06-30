@@ -1,59 +1,109 @@
-# Fittrack
+# 🏋️ FitTrack
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.9.
+Aplicação de acompanhamento de treinos de academia: cadastro de exercícios, registro de treinos com séries, repetições e carga, e um dashboard com estatísticas. Projeto full-stack com frontend Angular e backend NestJS persistindo em PostgreSQL.
 
-## Development server
+🔗 **Online:** [fit-track-rosy.vercel.app](https://fit-track-rosy.vercel.app)
 
-To start a local development server, run:
+## Stack
 
-```bash
-ng serve
-```
+| Camada   | Tecnologia                                        |
+| -------- | ------------------------------------------------- |
+| Frontend | Angular 21 (standalone components, Reactive Forms), SCSS |
+| Backend  | NestJS 11, Prisma 7 (driver adapter `@prisma/adapter-pg`) |
+| Banco    | PostgreSQL                                        |
+| Deploy   | Frontend na Vercel · Backend + banco na Railway   |
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Funcionalidades
 
-## Code scaffolding
+- **Login** — autenticação simples no frontend (dois usuários de demonstração). As rotas internas são protegidas por um guard.
+- **Dashboard** — estatísticas reais vindas da API: treinos no mês, último treino, exercícios cadastrados e gráfico de treinos por mês (últimos 6 meses).
+- **Exercícios** — CRUD do catálogo de exercícios, com categoria por grupo muscular.
+- **Treinos** — criação de treino com múltiplos exercícios (séries, repetições, carga), listagem, página de detalhe e remoção.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Usuários de demonstração
 
-```bash
-ng generate component component-name
-```
+| Usuário | Senha   |
+| ------- | ------- |
+| `admin` | `admin` |
+| `teste` | `0000`  |
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+> Observação: o login é apenas uma camada de demonstração no frontend. Os dados de treinos/exercícios são compartilhados entre os usuários.
 
-```bash
-ng generate --help
-```
+## Rodando localmente
 
-## Building
+Pré-requisitos: Node.js, npm e uma instância PostgreSQL local.
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### 1. Backend (`fittrack-api`)
 
 ```bash
-ng test
+cd fittrack-api
+npm install
 ```
 
-## Running end-to-end tests
+Crie um arquivo `.env` em `fittrack-api/`:
 
-For end-to-end (e2e) testing, run:
+```env
+DATABASE_URL="postgresql://USUARIO:SENHA@localhost:5432/fittrack"
+PORT=3000
+```
+
+Crie as tabelas no banco e inicie a API:
 
 ```bash
-ng e2e
+npx prisma db push
+npm run start:dev
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+A API sobe em `http://localhost:3000/api`.
 
-## Additional Resources
+### 2. Frontend (raiz do projeto)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npm install
+npm start
+```
+
+O app abre em `http://localhost:4200` e consome a API local (configurado em `src/environments/environment.ts`).
+
+## Build de produção
+
+```bash
+# Frontend
+npm run build      # gera dist/fittrack/browser e copia para browser/
+
+# Backend
+cd fittrack-api
+npm run build      # prisma generate + nest build → dist/main.js
+```
+
+A URL da API de produção fica em `src/environments/environment.prod.ts`.
+
+## Estrutura
+
+```
+FitTrack/
+├── src/                  # Aplicação Angular
+│   ├── app/
+│   │   ├── pages/        # login, dashboard, treinos, treino-detalhe, treino-form, exercicios
+│   │   ├── shared/       # navbar, card, treino-item, exercicio-item
+│   │   └── services/     # treino, exercicio, auth.guard
+│   └── environments/     # apiUrl por ambiente (dev/prod)
+└── fittrack-api/         # API NestJS
+    ├── src/
+    │   ├── exercicio/    # controller, service, dto
+    │   ├── treino/       # controller, service, dto
+    │   └── prisma/       # PrismaService
+    └── prisma/schema.prisma
+```
+
+## Endpoints da API
+
+| Método | Rota                 | Descrição                |
+| ------ | -------------------- | ------------------------ |
+| GET    | `/api/exercicios`    | Lista exercícios         |
+| POST   | `/api/exercicios`    | Cria exercício           |
+| DELETE | `/api/exercicios/:id`| Remove exercício         |
+| GET    | `/api/treinos`       | Lista treinos            |
+| GET    | `/api/treinos/:id`   | Detalhe de um treino     |
+| POST   | `/api/treinos`       | Cria treino              |
+| DELETE | `/api/treinos/:id`   | Remove treino            |
